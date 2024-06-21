@@ -100,3 +100,13 @@ The Movie Watchlist application is a web-based tool that allows users to manage 
 ### Usage
 - Navigate to the frontend application in your browser at http://localhost:3000.
 - Use the interactive calendar to view, create, update, and delete movies.
+
+## Link for Visit
+
+[Deployed Link](https://invact-movie-details.vercel.app/)
+
+[Backend Deployed Link](https://invact-backend-89qz.onrender.com/)
+
+[Github Link](https://github.com/kiranwankhade/Invact)
+
+[Demo Video Link](https://drive.google.com/file/d/1d0EzQxORP6vuAFW9aF6OEZzhQn5tmvGY/view?usp=sharing)
