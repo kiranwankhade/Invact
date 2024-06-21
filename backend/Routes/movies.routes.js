@@ -30,6 +30,7 @@ movieRouter.post("/", async (req, res) => {
   const movie = new Movie({
     title: req.body.title,
     description: req.body.description,
+    imageUrl:req.body.imageUrl,
     releaseYear: req.body.releaseYear,
     genre: req.body.genre,
     watchStatus: req.body.watchStatus,
@@ -65,8 +66,10 @@ movieRouter.put("/:id", async (req, res) => {
 movieRouter.delete("/:id", async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
-    if (!movie) return res.status(404).json({ message: "Movie not found" });
-    await movie.remove();
+    if (!movie) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+    await Movie.findByIdAndDelete(req.params.id);
     res.json({ message: "Movie deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -87,18 +90,18 @@ movieRouter.patch("/:id/watchStatus", async (req, res) => {
 });
 
 // Add/Edit rating and review
-movieRouter.patch('/:id/rating-review', async (req, res) => {
-    try {
-      const movie = await Movie.findById(req.params.id);
-      if (!movie) return res.status(404).json({ message: 'Movie not found' });
-      movie.rating = req.body.rating;
-      movie.reviews = req.body.reviews;
-      await movie.save();
-      res.json(movie);
-    } catch (err) {
-      res.status(400).json({ message: err.message });
-    }
-  });
+movieRouter.patch("/:id/rating-review", async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) return res.status(404).json({ message: "Movie not found" });
+    movie.rating = req.body.rating;
+    movie.reviews = req.body.reviews;
+    await movie.save();
+    res.json(movie);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 module.exports = {
   movieRouter,

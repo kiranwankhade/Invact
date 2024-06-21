@@ -3,8 +3,10 @@ import {
     GET_MOVIES_SUCCESS,
     GET_MOVIES_ERROR,
     GET_MOVIES_UPDATE,
+    GET_MOVIE_DELETE,
     RATING_UPDATE,
-    WATCH_STATUS_UPDATE,
+    WATCH_STATUS_TOGGLE,
+    ADD_MOVIES_SUCCESS,
 } from "./actionTypes";
 
 import axios from "axios"
@@ -40,6 +42,31 @@ const movieReducer = (state = initialState, action) => {
                 ...state,
                 status: "error",
                 error: false,
+            }
+        }
+
+        case ADD_MOVIES_SUCCESS: {
+            return {
+                ...state,
+                status: "success",
+                error: false,
+                movie:payload
+            }
+        }
+
+        case GET_MOVIES_UPDATE:{
+            return {
+                ...state,
+                movies: state.movies.map(movie => 
+                    movie._id === payload.id ? payload : movie
+                  ),
+            }
+        }
+
+        case GET_MOVIE_DELETE:{
+            return {
+                ...state,
+                movies:state.movies.filter((data)=> data._id !== payload.id)
             }
         }
 
