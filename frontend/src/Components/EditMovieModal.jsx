@@ -18,12 +18,14 @@ import {
 import { useDispatch } from "react-redux";
 import { updateMovieData } from "../Redux/action";
 import { BiEdit } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const EditMovieModal = ({ movie }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({ ...movie });
   const dispatch = useDispatch();
+  const nav = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,8 +62,12 @@ const EditMovieModal = ({ movie }) => {
 
   const handleSubmit = () => {
     if (validate()) {
-      dispatch(updateMovieData(movie._id, formData));
-      onClose();
+      dispatch(updateMovieData(movie._id, formData)).then(()=>{
+        
+        onClose();
+        window.location.reload();
+      });
+      
     }
   };
 

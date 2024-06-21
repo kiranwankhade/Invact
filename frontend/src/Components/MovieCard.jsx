@@ -9,7 +9,7 @@ import EditMovieModal from "./EditMovieModal";
 import { deleteMovie, getMoviesData, toggleWatchStatus } from "../Redux/action";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton } from "@chakra-ui/react";
 
-const MovieCard = ({ movie,onDelete ,watched }) => {
+const MovieCard = ({ movie,onDelete,watched }) => {
   const { title, description, imageUrl, releaseYear, genre, watchStatus, rating, reviews, _id } = movie;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,7 +22,9 @@ const MovieCard = ({ movie,onDelete ,watched }) => {
   };
 
   const handleToggleWatchStatus = () => {
-    dispatch(toggleWatchStatus(_id, !watchStatus));
+    dispatch(toggleWatchStatus(_id, !watchStatus)).then(() => {
+      onDelete() // Re-fetch the movies data
+  });;
   };
 
   const handleCardClick = () => {
@@ -71,7 +73,7 @@ const MovieCard = ({ movie,onDelete ,watched }) => {
           <Button bg={"black"} color={"white"} p={4} _hover={{ bg: "white", color: "black", border: '1px solid black' }} onClick={onOpen}>
             <span><BiChat /></span> Review
           </Button>
-          <EditMovieModal movie={movie} />
+          <EditMovieModal movie={movie}  />
           <Button bg={"black"} color={"white"} p={4} _hover={{ bg: "white", color: "black", border: '1px solid black' }} onClick={handleDelete}>
             <span><BiTrash /></span> Delete
           </Button>

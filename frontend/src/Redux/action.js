@@ -81,7 +81,7 @@ export const deleteMovie = (id) => async (dispatch) => {
 export const toggleWatchStatus = (id, watchStatus) => async (dispatch) => {
   try {
     const res = await axios.patch(
-      `http://localhost:8000/movie/${id}/watchStatus`,
+      `https://invact-backend-89qz.onrender.com/movie/${id}/watchStatus`,
       { watchStatus }
     );
     dispatch({ type: WATCH_STATUS_TOGGLE, payload: res.data });
@@ -93,7 +93,7 @@ export const toggleWatchStatus = (id, watchStatus) => async (dispatch) => {
 export const getMovieById = (id) => async (dispatch) => {
   dispatch({ type: GET_MOVIES_LOADING });
   try {
-    const res = await axios.get(`http://localhost:8000/movie/${id}`);
+    const res = await axios.get(`https://invact-backend-89qz.onrender.com/movie/${id}`);
     dispatch({ type: GET_MOVIE, payload: res.data });
   } catch (error) {
     dispatch({ type: GET_MOVIES_ERROR });
