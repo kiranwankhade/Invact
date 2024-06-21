@@ -4,9 +4,10 @@ import {
     GET_MOVIES_ERROR,
     GET_MOVIES_UPDATE,
     GET_MOVIE_DELETE,
-    RATING_UPDATE,
+    REVIEW_UPDATE,
     WATCH_STATUS_TOGGLE,
     ADD_MOVIES_SUCCESS,
+    GET_MOVIE,
 } from "./actionTypes";
 
 import axios from "axios"
@@ -70,6 +71,36 @@ const movieReducer = (state = initialState, action) => {
             }
         }
 
+        case WATCH_STATUS_TOGGLE: {
+            return {
+              ...state,
+              movies: state.movies.map(movie =>
+                movie._id === payload._id ? payload : movie
+              ),
+            };
+        }
+
+
+        case REVIEW_UPDATE:{
+            return {
+                status: "success",
+                error: null,
+                movies: state.movies.map(movie => 
+                    movie._id === payload.id ? payload : movie
+                  ),
+            }
+        }
+
+        case GET_MOVIE: {
+            return {
+                status: "success",
+                error: null,
+                movies: state.movies.map(movie =>
+                    movie._id === payload._id ? payload : movie
+                ),
+            };
+        }
+       
         
         default: {
             return initialState;

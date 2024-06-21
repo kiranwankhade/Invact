@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import { addMovie } from "../Redux/action";
 import { AiFillFolderAdd } from "react-icons/ai";
 
-const AddMovieModal = () => {
+const AddMovieModal = ({onAdd}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
@@ -53,6 +53,7 @@ const AddMovieModal = () => {
       dispatch(addMovie(formData)).then(()=>{
         setFormData({});
         setErrors({});
+        onAdd();
         onClose();
       });    
     }

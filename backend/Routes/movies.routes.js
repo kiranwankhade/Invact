@@ -90,11 +90,11 @@ movieRouter.patch("/:id/watchStatus", async (req, res) => {
 });
 
 // Add/Edit rating and review
-movieRouter.patch("/:id/rating-review", async (req, res) => {
+movieRouter.patch("/:id/review", async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
     if (!movie) return res.status(404).json({ message: "Movie not found" });
-    movie.rating = req.body.rating;
+    // movie.rating = req.body.rating;
     movie.reviews = req.body.reviews;
     await movie.save();
     res.json(movie);
